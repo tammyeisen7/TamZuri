@@ -15,6 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import com.tamzuri.app.data.SessionManager
 import com.tamzuri.app.ui.auth.LoginScreen
 import com.tamzuri.app.ui.auth.RegistroScreen
+import com.tamzuri.app.ui.contactos.ContactosScreen
 import com.tamzuri.app.ui.home.HomeScreen
 import com.tamzuri.app.ui.theme.TamZuriTheme
 
@@ -50,10 +51,16 @@ fun AppNavegacion(modifier: Modifier = Modifier) {
             )
         }
         composable("home") {
-            HomeScreen(onCerrarSesion = {
-                SessionManager.cerrar()
-                nav.navigate("login") { popUpTo("home") { inclusive = true } }
-            })
+            HomeScreen(
+                onIrAContactos = { nav.navigate("contactos") },
+                onCerrarSesion = {
+                    SessionManager.cerrar()
+                    nav.navigate("login") { popUpTo("home") { inclusive = true } }
+                }
+            )
+        }
+        composable("contactos") {
+            ContactosScreen(onVolver = { nav.popBackStack() })
         }
     }
 }
